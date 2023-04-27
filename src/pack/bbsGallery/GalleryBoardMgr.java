@@ -31,7 +31,7 @@ public class GalleryBoardMgr {
 	Statement				stmt 		= 		null;
 	ResultSet 				rS 			= 		null;
 	
-	private static final String SAVEFOLER = "D:\\AJR_20230126\\HY\\silsp\\p08_JSP\\230425\\WebContent\\fileupload";
+	private static final String SAVEFOLER = "D:\\AJR_20230126\\HY\\silsp\\p08_JSP\\230426\\WebContent\\fileupload";
 	// 작업자의 워크스페이스가 다르다면 파일이 업로드되는 경로도 그에 맞게 설정해야 함.
 	private static String encType = "UTF-8";
 	private static int maxSize = 5 * 1024 * 1024;     // 5Mbyte 제한

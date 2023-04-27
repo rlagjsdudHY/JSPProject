@@ -145,7 +145,8 @@ session.setAttribute("bean", bean);
 								<% } %>
 								<% 
 									// out.print("uidSession : "+ uidSession + "<br>" + "uid : "+ uid);
-									if ((uidSession!=null && uidSession.equals(uid)) || (uidSession.equals("admin")))  { 
+								//if ((uidSession!=null && uidSession.equals(uid)) || (uidSession.equals("admin")))  { 개선 전 코드 null값처리 안전 
+								if ((uidSession != null && uidSession.equals(uid)) || "admin".equals(uidSession)){
 										// 수정 전 원본 uidSession!=null && uidSession.equals(uid)) 
 								%>
 								<button type="button" id="modBtn">수 정</button>

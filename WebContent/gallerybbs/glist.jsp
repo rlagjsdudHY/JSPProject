@@ -292,7 +292,7 @@ Vector<GalleryBoardBean> vList = null;
 								<div>
 									<button type="button" id="searchBtn" class="listBtnStyle">검색</button>
 								</div>
-															
+								<input type="hidden" name="nowPage" value="<%=nowPage%>" id="nowPage">
 							</form>
 							
 							<!-- 검색결과 유지용 매개변수 데이터시작 -->
@@ -402,10 +402,22 @@ Vector<GalleryBoardBean> vList = null;
 </body>
 <script>
 
-function movePage(p1) {
-  let param = "/gallerybbs/glist.jsp?nowPage="+p1;
-  location.href = param;
-}
+// function movePage(p1) {
+//   let param = "/gallerybbs/glist.jsp?nowPage="+p1;
+//   location.href = param;
+// }
+		function movePage(p1) {
+			let queryString = "";
+			
+	        if (document.getElementById("pKeyField").value && document.getElementById("pKeyWord").value) { // 조건 검색이 이전에 있었다면
+	            queryString = "?keyField=" + document.getElementById("pKeyField").value + "&keyWord=" + document.getElementById("pKeyWord").value + "&nowPage=" + p1;
+	        } else {
+	            queryString = "?nowPage=" + p1;
+	        }
+	        let param = "/gallerybbs/glist.jsp" + queryString;
+	        
+	        location.href = param;
+		}
  
 </script>
 

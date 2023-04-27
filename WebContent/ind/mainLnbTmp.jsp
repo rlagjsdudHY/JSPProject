@@ -16,10 +16,10 @@ if (request.getParameter("gnbParam") != null) {
 	<nav id="mainLNB">
 		<ul id="lnbMainMenu">
 		
-		<% if (uidSession_MLTmp == null) { 	%>
-    			
-    		<li class="lnbMainLi"><a href="#">menu1</a></li>
-			<li class="lnbMainLi"><a href="#">menu2</a></li>
+		<% if (uidSession_MLTmp == null) { 	%> 
+<!--     			비회원도 갤러리는 볼 수 있게 수정 -->
+    		<li class="lnbMainLi"><a href="/bbs/list.jsp">자유게시판</a></li>
+			<li class="lnbMainLi"><a href="/gallerybbs/glist.jsp">갤러리게시판</a></li>
 			<li class="lnbMainLi"><a href="#">menu3</a></li>
 			<li class="lnbMainLi"><a href="#">menu4</a></li>
 			<li class="lnbMainLi"><a href="#">menu5</a></li>

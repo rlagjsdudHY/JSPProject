@@ -152,7 +152,8 @@ session.setAttribute("gbean", gbean);
 								<% } %>
 								<% 
 									// out.print("uidSession : "+ uidSession + "<br>" + "uid : "+ uid);
-								if ((uidSession!=null && uidSession.equals(uid)) || (uidSession.equals("admin"))) {
+								// if ((uidSession!=null && uidSession.equals(uid)) || (uidSession.equals("admin"))) { 수정전 null값처리전
+									if ((uidSession != null && uidSession.equals(uid)) || "admin".equals(uidSession)){ 
 								%>
 								<button type="button" id="modBtn">수 정</button>
 								<button type="button" id="delBtn">삭 제</button>

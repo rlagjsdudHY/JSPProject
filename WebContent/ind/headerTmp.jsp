@@ -55,10 +55,14 @@
 			<li>|</li>
 			<li class="mainLi"><a href="/member/joinAgreement.jsp">회원가입</a></li>
 			<li>|</li>
-			<li class="mainLi"><a href="/bbs/list.jsp">게시판</a></li>
+			<li id="boardLi" class="mainLi"><a href="/bbs/list.jsp?gnbParam=list">게시판</a>
+			<ul class="subMenu">
+			<li class="subLi"><a href="/bbs/list.jsp">자유게시판</a></li>
+			<li class="subLi"><a href="/gallerybbs/glist.jsp">갤러리게시판</a></li>
+			</ul>
 
 			<%
-			} else {
+			} else { //비회원도 갤러리 게시판은 볼 수 있게 수정
 			%>
 
 			<li class="mainLi"><a href="/index.jsp">HOME</a></li>
