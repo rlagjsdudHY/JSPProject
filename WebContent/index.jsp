@@ -23,7 +23,7 @@ String uId_Session = (String)session.getAttribute("uId_Session");
 		<%@ include file="/ind/headerTmp.jsp" %>
     	<!--  헤더템플릿 끝 -->    	
     	
-    	
+<!--     	시작 -->
     	<main id="main" class="dFlex">
     	
     		<div id="lnb">
