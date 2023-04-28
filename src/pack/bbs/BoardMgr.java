@@ -7,7 +7,9 @@ import java.io.FileInputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.Vector;
 
 import javax.security.auth.message.callback.PrivateKeyCallback.Request;
@@ -45,6 +47,62 @@ public class BoardMgr {
 		}
 
 	}
+	
+	
+	/* 댓글 불러오기 메서드 시작 */
+	
+	public Vector<String[]> getCommentList(int board_idx) {
+		String sql = null;
+		Vector<String[]> commentList = new Vector<String[]>();
+	    
+		try {
+		    sql = "SELECT * FROM Comment WHERE board_idx=?";
+		    pStmt = conn.prepareStatement(sql);
+		    pStmt.setInt(1, board_idx);
+		    rS = pStmt.executeQuery();
+
+		    while (rS.next()) {
+		        String[] comment = new String[5];
+		        comment[0] = rS.getString("uid");
+		        comment[1] = rS.getString("uname");
+		        comment[2] = rS.getString("content");
+		        comment[3] = rS.getString("ip");
+		        comment[4] = rS.getTimestamp("regtm").toString();
+		        commentList.add(comment);
+		    }
+		} catch (SQLException e) {
+		    e.printStackTrace();
+		} finally {
+		    pool.freeConnection(conn, pStmt, rS);
+		}
+
+		return commentList;
+	}
+	
+	/* 댓글 불러오기 메서드 끝  */
+	
+	/* 댓글 달기 메서드 시작*/
+	public void comment(HttpServletRequest req) {
+		   String sql = null;
+
+		    try {
+		        sql = "insert into Comment (uid, uname, content, ip,board_idx) values (?,?,?,?,?)";
+		        pStmt = conn.prepareStatement(sql);
+		        pStmt.setString(1, req.getParameter("uid"));
+		        pStmt.setString(2, req.getParameter("uname"));
+		        pStmt.setString(3, req.getParameter("comment"));
+		        pStmt.setString(4, req.getParameter("ip"));
+		        pStmt.setString(5, req.getParameter("num"));
+		        int exeCnt = pStmt.executeUpdate(); // 쿼리 실행 및 실제 적용된 데이터 개수 반환
+		        // exeCnt : DB에서 실제 적용된 데이터(=row, 로우)의 개수 저장됨
+
+		    } catch (Exception e) {
+		        System.out.println("Exception : " + e.getMessage());
+		    } finally {
+		        pool.freeConnection(conn, pStmt);
+		    }
+		}
+	/* 댓글 달기 메서드 끝*/
 	/* 게시글 수정페이지 (/bbs/updateProc.jsp) 시작 */
 	public int updateBoard(BoardBean bean) {
 		String sql = null;

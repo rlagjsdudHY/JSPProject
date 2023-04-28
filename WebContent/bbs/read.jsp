@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ page import="java.util.ArrayList" %>
+    <%@ page import="java.util.Vector" %>
 
  <%
  String uidSession = (String)session.getAttribute("uidSession");
@@ -167,7 +169,59 @@ session.setAttribute("bean", bean);
 			  
 				<!--  게시글 상세보기 페이지 내용 출력 끝 -->
 				<form action="/bbs/download.jsp" id="downloadForm"></form>
+<!-- 댓글 기능 만들기 시작-->
+<!-- 댓글 출력처리 -->
+<!-- 게시글 번호를 파라미터로 전달하여 댓글 목록을 가져옴 -->
 
+<!-- 댓글 목록 출력 -->
+<tr>
+      <th>작성자</th>
+      <th>댓글내용</th>
+      <th>작성일자</th>
+      <th>접속IP</th>
+    </tr>
+<%
+Vector<String[]> commentList = bMgr.getCommentList(num);
+
+for (int i = 0; i < commentList.size(); i++) {
+    String[] comment = commentList.get(i);
+%>
+    <div class="comment">
+        <div class="comment-info">
+            <span ><%=comment[1]%></span>
+            <span ><%=comment[2]%></span>
+            <span><%=comment[4] %></span>
+            <span><%=comment[3] %></span>
+        </div>
+
+    </div>
+    
+<%
+}
+%>
+ 
+<!-- 댓글출력처리끝 -->
+
+ 
+<!-- 댓글 입력처리 -->
+<form id="commentFrm" name="contForm" method="post" action=" ">
+  <table class="table">
+    <tr>
+      <td style="line-height:20px;">
+        <br/><br/>
+         <textarea class="" rows="2" id="comment" name="comment"></textarea>
+        <p><input type="button" id="commentSM" value="댓글달기" onclick="comment()"/></p>
+      </td>
+    </tr>
+  </table>
+    <input type="hidden" name="uid" value="<%=uid %>"/>
+    <input type="hidden" name="uname" value="<%=uname %>"/>
+    <input type="hidden" name="ip" value="<%= request.getRemoteAddr() %>"/>
+    <input type="hidden" name="num" value="<%=num %>"/>
+</form>
+
+
+<!-- 댓글 기능 만들기 끝-->
     		</div>
     		<!-- 실제 작업 영역 끝 -->
     		    	
@@ -183,5 +237,17 @@ session.setAttribute("bean", bean);
     <!-- div#wrap -->
 
 </body>
+<script>
+
+$(function comment(){
+	$("#commentSM").click(function(){
+		$("#commentFrm").attr("action", "/bbs/commentProc.jsp");
+		$("#commentFrm").submit();
+	
+		});
+	});
+
+
+</script>
 
 </html>
